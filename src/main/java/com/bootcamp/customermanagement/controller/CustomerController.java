@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.customermanagement.entity.Customer;
+import com.bootcamp.customermanagement.entity.Order;
 import com.bootcamp.customermanagement.entity.Review;
 import com.bootcamp.customermanagement.service.CustomerService;
 
@@ -64,11 +65,14 @@ public class CustomerController
 	  {
 		 System.out.println(emailId);
 		 Optional<List<Review>> r = customerService.getCustId(emailId);
+		 Optional<List<Order>> o = customerService.getCustIdByOrder(emailId);
 		 try
 		 {
+			 System.out.println("1 Hello");
 		 
-		 if(r==null)
+		 if((r==null)&&(o==null))
 		 {
+			 System.out.println("2 Hello");
 			 System.out.println(customerService.deleteCustomer(emailId));
 		 }
 		 else

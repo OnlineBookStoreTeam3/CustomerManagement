@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bootcamp.customermanagement.dao.CustomerDao;
+import com.bootcamp.customermanagement.dao.OrderDao;
 import com.bootcamp.customermanagement.dao.ReviewDao;
 import com.bootcamp.customermanagement.entity.Customer;
+import com.bootcamp.customermanagement.entity.Order;
 import com.bootcamp.customermanagement.entity.Review;
 
 @Service
@@ -17,6 +20,7 @@ public class CustomerService
 {
 	@Autowired
     CustomerDao cDao;
+	OrderDao oDao;
 	ReviewDao rDao;
 	public void setcDao(CustomerDao cDao) 
 	{
@@ -68,12 +72,27 @@ public class CustomerService
 	 {
 		 try
 		 {
+			 
 			
 			 return rDao.getCustId(emailId);
 		 }
-		 catch(NullPointerException e)
+		 catch(NullPointerException |EmptyResultDataAccessException e)
 		 {
 			 System.out.println("No Review by this Customer");
+			 return null;
+		 }
+	 }
+	 @Transactional
+	 public Optional<List<Order>> getCustIdByOrder(String emailId)
+	 {
+		 try
+		 {
+			
+			 return oDao.getCustId(emailId);
+		 }
+		 catch(NullPointerException|EmptyResultDataAccessException  e)
+		 {
+			 System.out.println("No Orders by this Customer");
 			 return null;
 		 }
 	 }

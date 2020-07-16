@@ -27,7 +27,7 @@ public class Review
     @JoinColumn(name = "book_id")
 	private Book book;
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@OneToOne(cascade =CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade =CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "emailaddress")
 	private Customer customer;
 	@Column(length = 5, name = "rating")
